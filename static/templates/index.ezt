@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<script type="application/javascript">
+    // Detect the browser dark/light mode preference
+    const sys_theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-bs-theme', sys_theme);
+</script>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="ASF Infrastructure Reporting Dashboard">
+        <meta name="author" content="ASF Infrastructure <users@infra.apache.org>">
+
+        <title>Home · ASF Infrastructure Reporting Dashboard</title>
+
+        <link href="/_assets/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link href="/_assets/bootstrap-icons.css" rel="stylesheet" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+
+
+        <!-- Favicons -->
+        <link rel="icon" href="/_assets/favicon.ico">
+        <meta name="theme-color" content="#712cf9">
+
+    </head>
+    <body style="margin: 10px; height: 96vh;">
+    <main style="margin: 0; overflow: hidden;">
+        <div class="row flex-grow-1 overflow-hidden g-6">
+            <div class="col-sm-auto" id="sidebar_left">
+                <div class="sticky-top">
+                    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+                        <img src="/_assets/dashboard-logo.png" style="width: 32px; margin: auto;">
+                        <span class="ms-1 d-none d-xl-inline fs-6">Reporting Dashboard</span>
+                    </a>
+                    <hr>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="render_home();">
+                                <i class="bi bi-house-fill fs-4" style="padding-right: 4px;"></i>
+                                <span class="ms-1 d-none d-xl-inline small">Home</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <span class="ms-1 d-none d-xl-inline">Publicly accessible pages:</span>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        [for plugins][if-any plugins.private][else]
+                        <li class="nav-item">
+                            <a href="#[plugins.slug]" onclick="render_dashboard_[plugins.slug]();" class="nav-link">
+                                <i class="bi [plugins.icon] fs-4" style="padding-right: 4px;"></i>
+                                <span class="ms-1 d-none d-xl-inline small">[plugins.title]</span>
+                            </a>
+                        </li>
+                        [end][end]
+                    </ul>
+                    <hr>
+                    <span class="ms-1 d-none d-xl-inline">Restricted to ASF members:</span>
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        [for plugins][if-any plugins.private]
+                        <li class="nav-item">
+                            <a href="#[plugins.slug]" onclick="render_dashboard_[plugins.slug]();" class="nav-link text-warning">
+                                <i class="bi [plugins.icon] fs-4" style="padding-right: 4px;"></i>
+                                <span class="ms-1 d-none d-xl-inline small">[plugins.title]</span>
+                            </a>
+                        </li>
+                        [end][end]
+                    </ul>
+                    <hr>
+                    <div class="dropdown" id="usermenu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi-person-circle fs-2 text-info p-1"></i>
+                            <span class="ms-1 d-none d-xl-inline">
+                            <small><strong id="useremail"></strong></small>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/api/session?action=logout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class='col py-0' style="padding-left: 16px; padding-top: 16px; height: 98vh; overflow-y: scroll; margin-right: 12px;">
+                <div class="card mw-50"">
+                    <div class="card-header">
+                        <h2 id="page_title" class="text-center"></h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="" id="page_description"></p>
+                        <hr/>
+                        <div id="chart_area" class="mx-100"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/_assets/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" type="text/ecmascript"></script>
+    <script src="/_assets/echarts.js" type="text/ecmascript"></script>
+    <script src="/_assets/plugins.js?[uuid]" type="text/ecmascript"></script>
+
+
+
+
+
+
+    </body>
+</html>
